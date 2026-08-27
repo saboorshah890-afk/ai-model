@@ -1,0 +1,19 @@
+How many orders are there?
+Test 2
+What is the total revenue?
+Test 3
+Which product sold the most?
+Test 4
+What is the average order value?
+Test 5
+Which payment method is most popular?
+Test 6
+How many orders were cancelled?
+Test 7
+How many orders were returned?
+Test 8
+Which referral source generated the most revenue?
+Test 9
+Which coupon is used the most?
+Test 10
+Tell me about the dataset
