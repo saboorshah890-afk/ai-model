@@ -5,12 +5,11 @@ import time
 import sys
 from pathlib import Path
 
-# Ensure local modules resolve when the app is launched from another directory.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from chatbot import NovaChatbot
 from speech import SpeechManager
-from config import (  # type: ignore[reportMissingImports]
+from config import ( 
     APP_NAME,
     WINDOW_WIDTH,
     WINDOW_HEIGHT,
@@ -40,20 +39,16 @@ class NovaApp:
         self.root.minsize(700, 500)
         self.root.configure(bg=BG_COLOR)
 
-        # Chatbot and speech engines
         self.chatbot = NovaChatbot()
         self.speech = SpeechManager()
 
-        # Prevent multiple voice recordings
         self.is_listening = False
         self.response_generation = 0
 
-        # Build GUI
         self.create_header()
         self.create_chat_area()
         self.create_input_area()
 
-        # Welcome message
         self.root.after(
             500,
             lambda: self.add_bot_message(
@@ -62,10 +57,7 @@ class NovaApp:
             )
         )
 
-    # ==================================================
-    # HEADER
-    # ==================================================
-
+    
     def create_header(self):
 
         header = tk.Frame(
@@ -173,10 +165,7 @@ class NovaApp:
                 "I couldn't load that dataset. Please select a valid Excel or CSV file."
             )
 
-    # ==================================================
-    # CHAT AREA
-    # ==================================================
-
+    
     def create_chat_area(self):
 
         container = tk.Frame(
@@ -269,10 +258,7 @@ class NovaApp:
             "units"
         )
 
-    # ==================================================
-    # INPUT AREA
-    # ==================================================
-
+    
     def create_input_area(self):
 
         bottom = tk.Frame(
@@ -357,10 +343,7 @@ class NovaApp:
             pady=5
         )
 
-    # ==================================================
-    # USER MESSAGE
-    # ==================================================
-
+    
     def add_user_message(self, message):
 
         row = tk.Frame(
@@ -407,10 +390,7 @@ class NovaApp:
 
         self.scroll_to_bottom()
 
-    # ==================================================
-    # BOT MESSAGE
-    # ==================================================
-
+    
     def add_bot_message(self, message):
 
         row = tk.Frame(
@@ -457,10 +437,7 @@ class NovaApp:
 
         self.scroll_to_bottom()
 
-    # ==================================================
-    # SCROLL
-    # ==================================================
-
+    
     def scroll_to_bottom(self):
 
         self.root.after(
@@ -468,10 +445,7 @@ class NovaApp:
             lambda: self.canvas.yview_moveto(1.0)
         )
 
-    # ==================================================
-    # TYPING INDICATOR
-    # ==================================================
-
+    
     def show_typing(self):
 
         if hasattr(self, "typing_label"):
@@ -508,10 +482,7 @@ class NovaApp:
 
             del self.typing_label
 
-    # ==================================================
-    # SEND MESSAGE
-    # ==================================================
-
+    
     def send_message(self):
 
         message = self.message_entry.get().strip()
@@ -532,7 +503,6 @@ class NovaApp:
             message
         )
 
-        # Process response in background
         thread = threading.Thread(
             target=self.process_message,
             args=(message, response_generation),
@@ -541,10 +511,7 @@ class NovaApp:
 
         thread.start()
 
-    # ==================================================
-    # PROCESS TEXT MESSAGE
-    # ==================================================
-
+    
     def process_message(self, message, response_generation):
 
         if response_generation != self.response_generation:
@@ -577,24 +544,16 @@ class NovaApp:
             lambda: self.add_bot_message(response)
         )
 
-        # Add response to TTS queue
         self.speech.speak(response)
 
-    # ==================================================
-    # ENTER KEY
-    # ==================================================
-
+    
     def on_enter(self, event):
 
         self.send_message()
 
-    # ==================================================
-    # VOICE INPUT
-    # ==================================================
-
+    
     def start_voice_input(self):
 
-        # Don't allow multiple recordings
         if self.is_listening:
             return
 
@@ -638,7 +597,6 @@ def process_voice(self):
                 lambda: self.add_bot_message(response)
             )
 
-            # Add response to TTS queue
             self.speech.speak(response)
 
         else:
@@ -663,9 +621,6 @@ def process_voice(self):
             )
         )
 
-# ======================================================
-# START APPLICATION
-# ======================================================
 
 if __name__ == "__main__":
 
