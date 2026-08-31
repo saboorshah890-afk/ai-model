@@ -12,9 +12,6 @@ class DataAnalyzer:
 
         self.load_data()
 
-    # ==================================================
-    # LOAD DATASET
-    # ==================================================
 
     def load_data(self):
 
@@ -33,7 +30,7 @@ class DataAnalyzer:
             else:
                 self.df = pd.read_excel(self.file_path)
 
-            # Remove completely empty rows
+
             self.df = self.df.dropna(
                 how="all"
             )
@@ -59,17 +56,10 @@ class DataAnalyzer:
                 error
             )
 
-    # ==================================================
-    # DATA STATUS
-    # ==================================================
-
     def is_loaded(self):
 
         return self.df is not None and not self.df.empty
 
-    # ==================================================
-    # TOTAL ORDERS
-    # ==================================================
 
     def total_orders(self):
 
@@ -88,9 +78,6 @@ class DataAnalyzer:
             f"in the dataset."
         )
 
-    # ==================================================
-    # TOTAL REVENUE
-    # ==================================================
 
     def total_revenue(self):
 
@@ -111,9 +98,6 @@ class DataAnalyzer:
             f"${revenue:,.2f}."
         )
 
-    # ==================================================
-    # AVERAGE ORDER VALUE
-    # ==================================================
 
     def average_order_value(self):
 
@@ -136,10 +120,6 @@ class DataAnalyzer:
             f"${average:,.2f}."
         )
 
-    # ==================================================
-    # TOTAL QUANTITY
-    # ==================================================
-
     def total_quantity(self):
 
         if not self.is_loaded():
@@ -159,9 +139,6 @@ class DataAnalyzer:
             f"ordered is {quantity:,.0f}."
         )
 
-    # ==================================================
-    # TOP PRODUCT BY QUANTITY
-    # ==================================================
 
     def top_product(self):
 
@@ -202,9 +179,6 @@ class DataAnalyzer:
             f"units sold."
         )
 
-    # ==================================================
-    # TOP PRODUCT BY REVENUE
-    # ==================================================
 
     def top_revenue_product(self):
 
@@ -250,9 +224,6 @@ class DataAnalyzer:
             f"revenue, with ${amount:,.2f}."
         )
 
-    # ==================================================
-    # PAYMENT METHOD
-    # ==================================================
 
     def payment_method(self):
 
@@ -282,10 +253,6 @@ class DataAnalyzer:
             f"The most popular payment method "
             f"is {name}, used for {count:,} orders."
         )
-
-    # ==================================================
-    # ORDER STATUS
-    # ==================================================
 
     def order_status(self):
 
@@ -318,10 +285,6 @@ class DataAnalyzer:
             + "."
         )
 
-    # ==================================================
-    # CANCELLED ORDERS
-    # ==================================================
-
     def cancelled_orders(self):
 
         if not self.is_loaded():
@@ -347,9 +310,6 @@ class DataAnalyzer:
             f"cancelled orders."
         )
 
-    # ==================================================
-    # RETURNED ORDERS
-    # ==================================================
 
     def returned_orders(self):
 
@@ -376,9 +336,6 @@ class DataAnalyzer:
             f"returned orders."
         )
 
-    # ==================================================
-    # REFERRAL SOURCE
-    # ==================================================
 
     def referral_source(self):
 
@@ -408,10 +365,6 @@ class DataAnalyzer:
             f"{source} is the most common referral "
             f"source, generating {count:,} orders."
         )
-
-    # ==================================================
-    # REFERRAL REVENUE
-    # ==================================================
 
     def referral_revenue(self):
 
@@ -457,9 +410,6 @@ class DataAnalyzer:
             f"revenue at ${amount:,.2f}."
         )
 
-    # ==================================================
-    # COUPON ANALYSIS
-    # ==================================================
 
     def coupon_analysis(self):
 
@@ -497,9 +447,6 @@ class DataAnalyzer:
             f"is {coupon}, used {count:,} times."
         )
 
-    # ==================================================
-    # DATASET SUMMARY
-    # ==================================================
 
     def summary(self):
 
@@ -518,9 +465,6 @@ class DataAnalyzer:
             f"and {columns} columns."
         )
 
-    # ==================================================
-    # SEARCH PRODUCT
-    # ==================================================
 
     def product_info(self, product_name):
 
@@ -571,9 +515,6 @@ class DataAnalyzer:
             f"${revenue:,.2f} in revenue."
         )
 
-    # ==================================================
-    # INTELLIGENT QUERY
-    # ==================================================
 
     def answer(self, question):
 
@@ -620,7 +561,6 @@ class DataAnalyzer:
         ):
             return self.top_product()
 
-        # Highest revenue product
         if (
             "highest revenue product" in q
             or "product generated the most revenue" in q
@@ -628,21 +568,20 @@ class DataAnalyzer:
         ):
             return self.top_revenue_product()
 
-        # Payment
+
         if (
             "payment method" in q
             or "payment" in q
         ):
             return self.payment_method()
 
-        # Status
         if (
             "order status" in q
             or "status breakdown" in q
         ):
             return self.order_status()
 
-        # Cancelled
+        
         if (
             "cancelled" in q
             or "canceled" in q
@@ -650,14 +589,13 @@ class DataAnalyzer:
         ):
             return self.cancelled_orders()
 
-        # Returned
+        
         if (
             "returned" in q
             or "return" in q
         ):
             return self.returned_orders()
 
-        # Referral
         if (
             "referral" in q
             or "marketing source" in q
@@ -669,15 +607,14 @@ class DataAnalyzer:
 
             return self.referral_source()
 
-        # Coupon
+       
         if (
             "coupon" in q
             or "promo code" in q
         ):
             return self.coupon_analysis()
 
-        # Dataset
-        if (
+               if (
             "dataset" in q
             or "data" in q
             or "records" in q
@@ -685,7 +622,7 @@ class DataAnalyzer:
         ):
             return self.summary()
 
-        # Product-specific question
+    
         match = re.search(
             r"(?:about|for|product)\s+([a-zA-Z0-9\s]+)",
             q
