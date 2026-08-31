@@ -8,9 +8,7 @@ class NovaChatbot:
 
     def __init__(self):
 
-        # ==================================================
-        # DATASET LOCATION
-        # ==================================================
+    
 
         dataset_folder = Path(__file__).resolve().parent
         dataset_files = sorted(
@@ -27,10 +25,7 @@ class NovaChatbot:
             dataset_path
         )
 
-    # ==================================================
-    # MAIN RESPONSE FUNCTION
-    # ==================================================
-
+    
     def get_response(self, message):
 
         if not message:
@@ -42,9 +37,7 @@ class NovaChatbot:
 
         question = message.lower().strip()
 
-        # ==================================================
-        # EXIT
-        # ==================================================
+    
 
         if question in [
             "exit",
@@ -57,9 +50,7 @@ class NovaChatbot:
                 "Goodbye! 👋 Have a great day."
             )
 
-        # ==================================================
-        # GREETINGS
-        # ==================================================
+   
 
         if question in [
             "hi",
@@ -78,9 +69,7 @@ class NovaChatbot:
                 "and referral sources."
             )
 
-        # ==================================================
-        # NAME
-        # ==================================================
+        
 
         if "your name" in question:
 
@@ -88,10 +77,6 @@ class NovaChatbot:
                 "My name is Nova. 🤖 "
                 "I'm your AI-powered data assistant."
             )
-
-        # ==================================================
-        # TIME
-        # ==================================================
 
         if "time" in question:
 
@@ -104,9 +89,6 @@ class NovaChatbot:
                 f"{current_time}."
             )
 
-        # ==================================================
-        # DATE
-        # ==================================================
 
         if (
             "today's date" in question
@@ -124,9 +106,6 @@ class NovaChatbot:
                 f"{current_date}."
             )
 
-        # ==================================================
-        # DATASET ANALYSIS
-        # ==================================================
 
         data_response = self.analyzer.answer(
             message
@@ -136,9 +115,6 @@ class NovaChatbot:
 
             return data_response
 
-        # ==================================================
-        # HELP
-        # ==================================================
 
         if (
             "help" in question
@@ -156,10 +132,6 @@ class NovaChatbot:
                 "How many orders were cancelled? "
                 "Which referral source generated the most revenue?"
             )
-
-        # ==================================================
-        # DEFAULT
-        # ==================================================
 
         return (
             "I understand your question, but I don't "
