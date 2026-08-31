@@ -8,10 +8,7 @@ class SpeechManager:
 
     def __init__(self):
 
-        # ==============================
-        # SPEECH RECOGNITION
-        # ==============================
-
+     
         self.recognizer = sr.Recognizer()
 
         self.recognizer.energy_threshold = 300
@@ -20,10 +17,7 @@ class SpeechManager:
         self.recognizer.phrase_threshold = 0.3
         self.recognizer.non_speaking_duration = 0.5
 
-        # ==============================
-        # TEXT TO SPEECH QUEUE
-        # ==============================
-
+     
         self.speech_queue = queue.Queue()
         self.current_engine = None
         self.engine_lock = threading.Lock()
@@ -35,9 +29,6 @@ class SpeechManager:
 
         self.speech_thread.start()
 
-    # ==================================================
-    # TTS WORKER
-    # ==================================================
 
     def _speech_worker(self):
 
@@ -59,8 +50,6 @@ class SpeechManager:
 
                 print("🔊 Speaking:", text)
 
-                # Create a NEW engine for every response.
-                # This is more reliable on Windows.
                 engine = pyttsx3.init()
 
                 with self.engine_lock:
@@ -126,9 +115,6 @@ class SpeechManager:
 
                 self.speech_queue.task_done()
 
-    # ==================================================
-    # SPEAK
-    # ==================================================
 
     def speak(self, text):
 
@@ -160,10 +146,8 @@ class SpeechManager:
                 except Exception:
                     pass
 
-    # ==================================================
-    # MICROPHONE
-    # ==================================================
 
+    
     def listen(self):
 
         try:
